@@ -9,6 +9,9 @@ services:
       - hive-metastore
     ports:
       - "8081:8081"
+    volumes:
+      - ./checkpoints:/opt/flink/checkpoints
+      - ./savepoints:/opt/flink/savepoints
 
   minio:
     image: minio/minio
@@ -20,6 +23,9 @@ services:
       - 9001:9001
       - 9000:9000
     command: [ "server", "/data", "--console-address", ":9001" ]
+    volumes:
+      # Persist MinIO data (buckets and objects)
+      - minio-data:/data
 
   mc:
     depends_on:
@@ -33,9 +39,6 @@ services:
       /usr/bin/mc mb minio/warehouse;
       tail -f /dev/null
       " 
-
-
-
 
   metastore_db:
     image: postgres:11
@@ -54,6 +57,8 @@ services:
       retries: 5
     volumes:
       - ./postgresscripts:/docker-entrypoint-initdb.d
+      # Persist PostgreSQL data
+      - postgres-data:/var/lib/postgresql/data
 
   hive-metastore:
     hostname: hive-metastore
@@ -89,7 +94,19 @@ services:
       - metastore_db
     healthcheck:
       test: bash -c "exec 6<> /dev/tcp/localhost/9083"
+    volumes:
+      # Persist Hive Metastore configuration (optional)
+      - hive-metastore-data:/opt/hive/data
 
 networks:
   default:
     name: fih
+
+# Define named volumes
+volumes:
+  postgres-data:
+    driver: local
+  minio-data:
+    driver: local
+  hive-metastore-data:
+    driver: local
