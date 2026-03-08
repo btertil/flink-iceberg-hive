@@ -1,0 +1,28 @@
+# JobManager
+jobmanager.rpc.address: localhost
+jobmanager.rpc.port: 6123
+jobmanager.memory.process.size: 1600m
+
+# TaskManager
+taskmanager.memory.process.size: 1728m
+taskmanager.numberOfTaskSlots: 4
+
+# Blob Server
+blob.server.port: 6124
+
+# Query Server
+query.server.port: 6125
+
+# Rest & Web Frontend
+rest.port: 8081
+rest.bind-address: 0.0.0.0
+
+# Checkpointing
+state.checkpoints.dir: file:///opt/flink/checkpoints
+state.savepoints.dir: file:///opt/flink/savepoints
+execution.checkpointing.externalized-checkpoint-retention: RETAIN_ON_CANCELLATION
+
+# Restart Strategy
+restart-strategy: fixed-delay
+restart-strategy.fixed-delay.attempts: 3
+restart-strategy.fixed-delay.delay: 10s
