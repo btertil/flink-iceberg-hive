@@ -56,3 +56,25 @@ select
     sum(order_value) as total_value
 from orders
 group by name;
+
+-- AVRO formats and others
+
+CREATE TABLE sales_rep_avro (
+  sales_id BIGINT,
+  sales_person_name VARCHAR
+)
+WITH ('format' = 'AVRO');
+
+INSERT INTO sales_rep_avro VALUES
+(25, 'X'),
+(4, 'Y'),
+(21, 'X'),
+(23, 'X');
+
+SELECT
+    sales_person_name,
+    count(*) ile,
+    avg(sales_id) avg_score,
+    sum(sales_id) total_score
+FROM sales_rep_avro
+GROUP BY sales_person_name;
