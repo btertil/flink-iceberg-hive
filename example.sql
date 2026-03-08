@@ -48,11 +48,11 @@ VALUES
 
 -- Verify the inserted data
 SELECT * FROM orders;
-select count(*) ile, sum(order_value) total_value from orders;
+select count(*) nrows, sum(order_value) total_value from orders;
 
 select
     name,
-    count(*) as ile,
+    count(*) as nrows,
     sum(order_value) as total_value
 from orders
 group by name;
@@ -73,7 +73,7 @@ INSERT INTO sales_rep_avro VALUES
 
 SELECT
     sales_person_name,
-    count(*) ile,
+    count(*) nrows,
     avg(sales_id) avg_score,
     sum(sales_id) total_score
 FROM sales_rep_avro
