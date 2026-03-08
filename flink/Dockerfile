@@ -1,34 +1,9 @@
-# Version arguments - can be overridden at build time
+# Only FLINK_VERSION needed before FROM
 ARG FLINK_VERSION=1.19.3
-ARG FLINK_SCALA_VERSION=2.12
-
-# Iceberg versions
-ARG ICEBERG_FLINK_RUNTIME_VERSION=1.19
-ARG ICEBERG_VERSION=1.6.1
-
-# Hadoop versions
-ARG HADOOP_VERSION=3.3.4
-
-# Hive connector version
-ARG HIVE_VERSION=3.1.3
-ARG HIVE_CONNECTOR_VERSION=1.19.0
-
-# Commons and utilities versions
-ARG COMMONS_CONFIG_VERSION=2.1.1
-ARG COMMONS_LOGGING_VERSION=1.1.3
-ARG STAX2_API_VERSION=4.2.1
-ARG WOODSTOX_CORE_VERSION=5.3.0
-ARG HADOOP_SHADED_GUAVA_VERSION=1.1.1
-
-# AWS SDK version
-ARG AWS_SDK_VERSION=1.12.648
 
 FROM apache/flink:${FLINK_VERSION}-java17
 
-# ============================================================================
-# REDECLARE ARG VARIABLES AFTER FROM (CRITICAL)
-# ============================================================================
-ARG FLINK_VERSION=1.19.3
+# All dependency versions
 ARG FLINK_SCALA_VERSION=2.12
 ARG ICEBERG_FLINK_RUNTIME_VERSION=1.19
 ARG ICEBERG_VERSION=1.6.1
