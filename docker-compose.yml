@@ -21,6 +21,10 @@ services:
       - ./checkpoints:/opt/flink/checkpoints
       - ./savepoints:/opt/flink/savepoints
       - flink-data:/opt/flink/data
+      - ./flink/conf/flink-conf.yaml:/opt/flink/conf/flink-conf.yaml:ro
+      - ./flink/conf/hive-site.xml:/opt/flink/conf/hive-site.xml:ro
+      - ./flink/flink-sql-history:/root/.flink-sql-history
+
     command: >
       bash -c "
       /opt/flink/bin/start-cluster.sh &&

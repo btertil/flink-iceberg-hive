@@ -2,10 +2,6 @@ FROM apache/flink:1.19.3-java17
 
 WORKDIR /opt/flink
 
-# Copy configurations
-COPY conf/flink-conf.yaml ./conf/flink-conf.yaml
-COPY conf/hive-site.xml ./conf/hive-site.xml
-COPY flink-sql-history /root/.flink-sql-history
 
 # Install tools
 RUN apt-get update && \
