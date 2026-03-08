@@ -5,11 +5,23 @@ docker compose up -d
 docker compose exec -it flink ./bin/sql-client.sh
 
 
+-- CREATE CATALOG iceberg_hive WITH (
+--         'type' = 'iceberg',
+--         'catalog-type'='hive',
+--         'warehouse' = 's3a://warehouse',
+--         'hive-conf-dir' = './conf');
+
 CREATE CATALOG iceberg_hive WITH (
-        'type' = 'iceberg',
-        'catalog-type'='hive',
-        'warehouse' = 's3a://warehouse',
-        'hive-conf-dir' = './conf');
+  'type' = 'iceberg',
+  'catalog-type' = 'hive',
+  'warehouse' = 's3a://warehouse/',
+  'hive.metastore.uris' = 'thrift://hive-metastore:9083',
+  's3.endpoint' = 'http://minio:9000',
+  's3.access-key' = 'admin',
+  's3.secret-key' = 'password',
+  's3.path-style-access' = 'true',
+   'hive-conf-dir' = './conf'
+);
 
 CREATE DATABASE `iceberg_hive`.`mydb`;
 
