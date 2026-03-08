@@ -1,10 +1,10 @@
-docker compose build
-docker compose up -d
+-- docker compose build
+-- docker compose up -d
 
 
-docker compose exec -it flink ./bin/sql-client.sh
+-- docker compose exec -it flink ./bin/sql-client.sh
 
-
+show catalogs;
 -- CREATE CATALOG iceberg_hive WITH (
 --         'type' = 'iceberg',
 --         'catalog-type'='hive',
@@ -49,3 +49,10 @@ VALUES
 -- Verify the inserted data
 SELECT * FROM orders;
 select count(*) ile, sum(order_value) total_value from orders;
+
+select
+    name,
+    count(*) as ile,
+    sum(order_value) as total_value
+from orders
+group by name;
